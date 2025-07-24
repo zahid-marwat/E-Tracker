@@ -1,0 +1,828 @@
+/* Enhanced Expense Tracker Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --success-color: #4CAF50;
+    --warning-color: #ff9800;
+    --danger-color: #f44336;
+    --info-color: #2196F3;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-gradient);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--dark-color);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    background: var(--background-gradient);
+    color: white;
+    padding: 30px 40px;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header h1 i {
+    margin-right: 15px;
+    color: var(--accent-color);
+}
+
+.currency-display {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.date-display {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Dashboard Overview */
+.dashboard-overview {
+    padding: 30px 40px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.dashboard-overview h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--dark-color);
+    font-size: 2rem;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.overview-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: var(--transition);
+    border-left: 5px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.overview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.overview-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.overview-card.income {
+    border-left-color: var(--success-color);
+}
+
+.overview-card.expenses {
+    border-left-color: var(--danger-color);
+}
+
+.overview-card.savings {
+    border-left-color: var(--info-color);
+}
+
+.overview-card.net-worth {
+    border-left-color: var(--warning-color);
+}
+
+.overview-card i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.overview-card.income i { color: var(--success-color); }
+.overview-card.expenses i { color: var(--danger-color); }
+.overview-card.savings i { color: var(--info-color); }
+.overview-card.net-worth i { color: var(--warning-color); }
+
+.overview-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+.overview-card .amount {
+    font-size: 2rem;
+    font-weight: bold;
+    display: block;
+}
+
+/* Action Buttons */
+.action-buttons {
+    padding: 30px 40px;
+    background: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.action-btn {
+    background: var(--background-gradient);
+    color: white;
+    border: none;
+    padding: 20px 30px;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn i {
+    font-size: 1.3rem;
+}
+
+/* Dashboard Sections */
+.loan-dashboard,
+.committee-dashboard,
+.expenses-dashboard,
+.net-values-dashboard {
+    padding: 40px;
+    border-top: 1px solid #eee;
+}
+
+.loan-dashboard h2,
+.committee-dashboard h2,
+.expenses-dashboard h2,
+.net-values-dashboard h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--dark-color);
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Loan Dashboard */
+.loan-summary-section {
+    margin-bottom: 40px;
+}
+
+.loan-summary-section h3 {
+    margin-bottom: 20px;
+    color: var(--dark-color);
+    font-size: 1.5rem;
+}
+
+.loan-summary-table {
+    display: grid;
+    gap: 20px;
+}
+
+.loan-person-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.loan-person-card:hover {
+    box-shadow: var(--card-shadow);
+    transform: translateY(-2px);
+}
+
+.loan-person-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f5f5f5;
+}
+
+.loan-person-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.loan-net-amount {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+}
+
+.loan-net-amount.positive {
+    background: var(--success-color);
+}
+
+.loan-net-amount.negative {
+    background: var(--danger-color);
+}
+
+.loan-net-amount.zero {
+    background: var(--info-color);
+}
+
+.loan-summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.loan-summary-item {
+    text-align: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.loan-summary-item .label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.loan-summary-item .value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+/* Monthly Expenses Table */
+.monthly-expenses-table {
+    margin: 30px 0;
+    overflow-x: auto;
+}
+
+.monthly-expenses-table h3 {
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+#monthlyExpensesTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+}
+
+#monthlyExpensesTable th,
+#monthlyExpensesTable td {
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+#monthlyExpensesTable th {
+    background: var(--background-gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+#monthlyExpensesTable tbody tr {
+    transition: var(--transition);
+}
+
+#monthlyExpensesTable tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.editable-row {
+    background: #fff3cd !important;
+}
+
+.month-actions {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.btn-edit,
+.btn-save {
+    background: var(--info-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.btn-edit:hover,
+.btn-save:hover {
+    opacity: 0.8;
+}
+
+/* Charts */
+.loan-chart-container,
+.expense-chart-container,
+.net-values-chart-container {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin: 30px 0;
+}
+
+.loan-chart-container h3,
+.expense-chart-container h3,
+.net-values-chart-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+/* Committee Dashboard */
+.committee-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.committee-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+}
+
+.committee-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.committee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f5f5f5;
+}
+
+.committee-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.committee-status {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.committee-status.active {
+    background: var(--success-color);
+    color: white;
+}
+
+.committee-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.committee-detail {
+    text-align: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.committee-detail .label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.committee-detail .value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+/* Net Values Dashboard */
+.net-values-month-selector {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.net-values-month-selector label {
+    font-size: 1.1rem;
+    margin-right: 10px;
+    color: var(--dark-color);
+}
+
+.net-values-month-selector input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.net-values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.net-value-card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: var(--transition);
+    border-top: 4px solid;
+}
+
+.net-value-card:hover {
+    transform: translateY(-4px);
+}
+
+.net-value-card.loan-given { border-top-color: #ff6b6b; }
+.net-value-card.loan-taken { border-top-color: #4ecdc4; }
+.net-value-card.loan-received { border-top-color: #45b7d1; }
+.net-value-card.net-loan { border-top-color: #96ceb4; }
+.net-value-card.income { border-top-color: #feca57; }
+.net-value-card.expenses { border-top-color: #ff9ff3; }
+.net-value-card.savings { border-top-color: #54a0ff; }
+.net-value-card.net-worth { border-top-color: #5f27cd; }
+
+.net-value-card h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+.net-value-card .amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+/* Month Selector */
+.month-selector {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.month-selector label {
+    font-size: 1.1rem;
+    margin-right: 10px;
+    color: var(--dark-color);
+}
+
+.month-selector input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background: var(--background-gradient);
+    color: white;
+    padding: 20px 30px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal form {
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.btn-primary,
+.btn-secondary {
+    background: var(--background-gradient);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto;
+    width: auto;
+    min-width: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        border-radius: 0;
+    }
+    
+    header {
+        padding: 20px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .dashboard-overview,
+    .loan-dashboard,
+    .committee-dashboard,
+    .expenses-dashboard,
+    .net-values-dashboard {
+        padding: 20px;
+    }
+    
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .modal form {
+        padding: 20px;
+    }
+    
+    .loan-summary-row,
+    .committee-details,
+    .net-values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #monthlyExpensesTable {
+        font-size: 0.8rem;
+    }
+    
+    #monthlyExpensesTable th,
+    #monthlyExpensesTable td {
+        padding: 8px 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .overview-card {
+        padding: 20px;
+    }
+    
+    .overview-card .amount {
+        font-size: 1.5rem;
+    }
+    
+    .committee-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .net-values-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading States */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.mb-20 { margin-bottom: 20px; }
+.mt-20 { margin-top: 20px; }
+.hidden { display: none; }
+.visible { display: block; }
+
+/* Success/Error Messages */
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}

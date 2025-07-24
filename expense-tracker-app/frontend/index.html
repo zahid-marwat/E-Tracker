@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Expense Tracker - Complete Financial Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.0/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-wallet"></i> Enhanced Expense Tracker</h1>
+            <div class="currency-display">Currency: PKR (₨)</div>
+            <div class="date-display" id="currentDate"></div>
+        </header>
+
+        <!-- Dashboard Overview -->
+        <section class="dashboard-overview">
+            <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-card income">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Monthly Income</h3>
+                    <span class="amount" id="monthlyIncome">₨0.00</span>
+                </div>
+                <div class="overview-card expenses">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Total Expenses</h3>
+                    <span class="amount" id="totalExpenses">₨0.00</span>
+                </div>
+                <div class="overview-card savings">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h3>Total Savings</h3>
+                    <span class="amount" id="totalSavings">₨0.00</span>
+                </div>
+                <div class="overview-card net-worth">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Net Worth</h3>
+                    <span class="amount" id="netWorth">₨0.00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Action Buttons -->
+        <section class="action-buttons">
+            <button class="action-btn expense-btn" onclick="showModal('expenseModal')">
+                <i class="fas fa-plus-circle"></i>
+                Add Expense
+            </button>
+            <button class="action-btn loan-btn" onclick="showModal('loanModal')">
+                <i class="fas fa-handshake"></i>
+                Add Loan
+            </button>
+            <button class="action-btn committee-btn" onclick="showModal('committeeModal')">
+                <i class="fas fa-users"></i>
+                Add Committee
+            </button>
+            <button class="action-btn income-btn" onclick="showModal('incomeModal')">
+                <i class="fas fa-money-bill-wave"></i>
+                Add Income
+            </button>
+        </section>
+
+        <!-- a. LOAN DASHBOARD -->
+        <section class="loan-dashboard">
+            <h2><i class="fas fa-handshake"></i> Loan Dashboard</h2>
+            
+            <!-- Loan Summary Table -->
+            <div class="loan-summary-section">
+                <h3>Loan Summary by Person</h3>
+                <div class="loan-summary-table" id="loanSummaryTable">
+                    <!-- Dynamic loan summary will be populated here -->
+                </div>
+            </div>
+
+            <!-- Monthly Loan Totals -->
+            <div class="monthly-loan-totals">
+                <h3>Monthly Loan Summary</h3>
+                <div class="loan-monthly-grid" id="loanMonthlyGrid">
+                    <!-- Monthly loan data will be populated here -->
+                </div>
+            </div>
+
+            <!-- Loan Timeline Chart -->
+            <div class="loan-chart-container">
+                <h3>Lifetime Loan Net Amount Timeline</h3>
+                <canvas id="loanTimelineChart"></canvas>
+            </div>
+        </section>
+
+        <!-- b. COMMITTEE DASHBOARD -->
+        <section class="committee-dashboard">
+            <h2><i class="fas fa-users"></i> Committee Dashboard</h2>
+            <div class="committee-list" id="committeeList">
+                <!-- Committee cards will be populated here -->
+            </div>
+            <div class="committee-actions">
+                <button class="btn-secondary" onclick="showModal('committeePaymentModal')">
+                    <i class="fas fa-credit-card"></i>
+                    Make Committee Payment
+                </button>
+            </div>
+        </section>
+
+        <!-- c. EXPENSES DASHBOARD -->
+        <section class="expenses-dashboard">
+            <h2><i class="fas fa-chart-bar"></i> Expenses Dashboard</h2>
+            
+            <!-- Monthly Summary Table -->
+            <div class="month-selector">
+                <label for="expenseMonth">Select Month for Analysis:</label>
+                <input type="month" id="expenseMonth" onchange="loadMonthlyExpenses()">
+            </div>
+            
+            <div class="monthly-expenses-table">
+                <h3>Monthly Expense Summary</h3>
+                <table id="monthlyExpensesTable">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Food</th>
+                            <th>Shopping</th>
+                            <th>Home</th>
+                            <th>Sports</th>
+                            <th>Commute</th>
+                            <th>Education</th>
+                            <th>Trip</th>
+                            <th>Committee</th>
+                            <th>Others</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthlyExpensesBody">
+                        <!-- Monthly rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Monthly Bar Chart -->
+            <div class="expense-chart-container">
+                <h3>Monthly Expenses Bar Chart</h3>
+                <canvas id="monthlyExpenseChart"></canvas>
+            </div>
+        </section>
+
+        <!-- d. NET AMOUNT VALUES DASHBOARD -->
+        <section class="net-values-dashboard">
+            <h2><i class="fas fa-calculator"></i> Monthly Net Values Dashboard</h2>
+            
+            <div class="net-values-month-selector">
+                <label for="netValuesMonth">Select Month:</label>
+                <input type="month" id="netValuesMonth" onchange="loadNetValues()">
+            </div>
+
+            <div class="net-values-grid" id="netValuesGrid">
+                <!-- Net values cards will be populated here -->
+            </div>
+
+            <!-- Net Values Bar Chart -->
+            <div class="net-values-chart-container">
+                <h3>Monthly Financial Overview</h3>
+                <canvas id="netValuesChart"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODALS -->
+    
+    <!-- Expense Modal -->
+    <div id="expenseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Expense</h2>
+                <span class="close" onclick="closeModal('expenseModal')">&times;</span>
+            </div>
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label for="expenseAmount">Amount (₨)</label>
+                    <input type="number" id="expenseAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDescription">Description</label>
+                    <input type="text" id="expenseDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseCategory">Category</label>
+                    <select id="expenseCategory" required>
+                        <option value="Food">Food</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Home">Home</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Commute">Commute</option>
+                        <option value="Education">Education</option>
+                        <option value="Trip">Trip</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDate">Date</label>
+                    <input type="date" id="expenseDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseLocation">Location</label>
+                    <input type="text" id="expenseLocation">
+                </div>
+                <div class="form-group">
+                    <label for="expenseNotes">Notes</label>
+                    <textarea id="expenseNotes"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Add Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loan Modal -->
+    <div id="loanModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Loan Transaction</h2>
+                <span class="close" onclick="closeModal('loanModal')">&times;</span>
+            </div>
+            <form id="loanForm">
+                <div class="form-group">
+                    <label for="loanType">Transaction Type</label>
+                    <select id="loanType" required onchange="updateLoanLabels()">
+                        <option value="given">Loan Given to Someone</option>
+                        <option value="taken">Loan Taken from Someone</option>
+                        <option value="received_back">Loan Received Back from Someone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="personName" id="personNameLabel">Person Name</label>
+                    <input type="text" id="personName" required list="personsList">
+                    <datalist id="personsList">
+                        <!-- Will be populated with existing persons -->
+                    </datalist>
+                </div>
+                <div class="form-group">
+                    <label for="loanAmount">Amount (₨)</label>
+                    <input type="number" id="loanAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="loanDescription">Description</label>
+                    <input type="text" id="loanDescription">
+                </div>
+                <div class="form-group">
+                    <label for="loanDate">Date</label>
+                    <input type="date" id="loanDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="loanDueDate" id="dueDateLabel">Due Date (Optional)</label>
+                    <input type="date" id="loanDueDate">
+                </div>
+                <div class="form-group">
+                    <label for="interestRate">Interest Rate (% per annum)</label>
+                    <input type="number" id="interestRate" step="0.01" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="loanNotes">Notes</label>
+                    <textarea id="loanNotes"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Add Loan Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Committee Modal -->
+    <div id="committeeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Committee</h2>
+                <span class="close" onclick="closeModal('committeeModal')">&times;</span>
+            </div>
+            <form id="committeeForm">
+                <div class="form-group">
+                    <label for="committeeName">Committee Name</label>
+                    <input type="text" id="committeeName" required>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="monthlyAmount">Monthly Amount to Pay (₨)</label>
+                    <input type="number" id="monthlyAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="expectedAmount">Expected Receiving Amount (₨)</label>
+                    <input type="number" id="expectedAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="expectedDate">Expected Receiving Date</label>
+                    <input type="date" id="expectedDate" required>
+                </div>
+                <button type="submit" class="btn-primary">Add Committee</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Committee Payment Modal -->
+    <div id="committeePaymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Make Committee Payment</h2>
+                <span class="close" onclick="closeModal('committeePaymentModal')">&times;</span>
+            </div>
+            <form id="committeePaymentForm">
+                <div class="form-group">
+                    <label for="paymentCommittee">Select Committee</label>
+                    <select id="paymentCommittee" required>
+                        <!-- Will be populated with active committees -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paymentAmount">Amount (₨)</label>
+                    <input type="number" id="paymentAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentDate">Payment Date</label>
+                    <input type="date" id="paymentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMonth">For Month</label>
+                    <input type="month" id="paymentMonth" required>
+                </div>
+                <button type="submit" class="btn-primary">Make Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Income Modal -->
+    <div id="incomeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Monthly Income</h2>
+                <span class="close" onclick="closeModal('incomeModal')">&times;</span>
+            </div>
+            <form id="incomeForm">
+                <div class="form-group">
+                    <label for="incomeAmount">Amount (₨)</label>
+                    <input type="number" id="incomeAmount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="incomeSource">Source</label>
+                    <input type="text" id="incomeSource" placeholder="e.g., Salary, Business, Freelance" required>
+                </div>
+                <div class="form-group">
+                    <label for="incomeMonth">Month</label>
+                    <input type="month" id="incomeMonth" required>
+                </div>
+                <button type="submit" class="btn-primary">Add Income</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
