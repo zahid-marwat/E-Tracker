@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Expense Tracker - Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard {
+            padding: 30px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .metric-label {
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+
+        .status {
+            background: #e8f5e8;
+            border: 1px solid #27ae60;
+            color: #27ae60;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffeaea;
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .features-list h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .features-list ul {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .features-list li:before {
+            content: "✅ ";
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Enhanced Expense Tracker</h1>
+            <p>Comprehensive Financial Management System</p>
+        </div>
+
+        <div class="dashboard">
+            <div id="status" class="status">
+                ✅ Test Frontend Loaded Successfully
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">₨0.00</div>
+                    <div class="metric-label">Monthly Expenses</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">₨0.00</div>
+                    <div class="metric-label">Monthly Income</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">₨0.00</div>
+                    <div class="metric-label">Total Savings</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">₨0.00</div>
+                    <div class="metric-label">Net Worth</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="testAPI('expenses')">🛒 Test Add Expense</button>
+                <button class="btn btn-success" onclick="testAPI('loans')">🤝 Test Add Loan</button>
+                <button class="btn btn-warning" onclick="testAPI('committees')">👥 Test Add Committee</button>
+                <button class="btn btn-info" onclick="testAPI('income')">💰 Test Add Income</button>
+            </div>
+
+            <div class="features-list">
+                <h3>🚀 Enhanced Features Implemented</h3>
+                <ul>
+                    <li><strong>Loan Management:</strong> Track 3 types of loans (Given, Taken, Received Back)</li>
+                    <li><strong>Committee System:</strong> Full lifecycle management with automatic payments</li>
+                    <li><strong>Expense Categories:</strong> 8 comprehensive categories (Food, Shopping, Home, Sports, Commute, Education, Trip, Others)</li>
+                    <li><strong>Person Management:</strong> Track individuals across loans and transactions</li>
+                    <li><strong>Monthly Analytics:</strong> Comprehensive financial summaries and net worth calculations</li>
+                    <li><strong>Loan Timeline:</strong> Visual timeline of all loan transactions</li>
+                    <li><strong>Net Values Dashboard:</strong> Monthly breakdown of all financial metrics</li>
+                    <li><strong>Enhanced Dashboard:</strong> Real-time widgets and summary tables</li>
+                    <li><strong>React Components:</strong> Modern frontend with professional UI/UX</li>
+                </ul>
+            </div>
+
+            <div id="test-results"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testAPI(endpoint) {
+            const status = document.getElementById('status');
+            const results = document.getElementById('test-results');
+            
+            try {
+                status.innerHTML = `🔄 Testing ${endpoint} endpoint...`;
+                status.className = 'status';
+                
+                const response = await fetch(`http://127.0.0.1:5000/api/${endpoint}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    status.innerHTML = `✅ Backend API is working! ${endpoint} endpoint responded successfully.`;
+                    status.className = 'status';
+                    
+                    results.innerHTML = `
+                        <div class="status">
+                            <h4>API Response for ${endpoint}:</h4>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                status.innerHTML = `❌ Backend connection failed: ${error.message}`;
+                status.className = 'error';
+                
+                results.innerHTML = `
+                    <div class="error">
+                        <h4>Troubleshooting Steps:</h4>
+                        <ol>
+                            <li>Ensure backend server is running: <code>cd backend && python app.py</code></li>
+                            <li>Check if Flask server is on http://127.0.0.1:5000</li>
+                            <li>Verify CORS is enabled in Flask app</li>
+                            <li>Check browser console for additional errors (F12)</li>
+                        </ol>
+                    </div>
+                `;
+            }
+        }
+
+        // Test dashboard endpoint on page load
+        window.onload = function() {
+            testAPI('dashboard/overview');
+        };
+    </script>
+</body>
+</html>
